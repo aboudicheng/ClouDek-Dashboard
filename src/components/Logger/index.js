@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Card, Modal, Icon } from 'antd';
 import moment from 'moment';
 import LogList from '../LogList';
 
 function Logger() {
-  const { logs, attackData } = useSelector(state => state.attackDataState);
+  const { attackData } = useSelector(state => state.attackDataState);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -13,7 +14,7 @@ function Logger() {
       <Card
         title={<><Icon type="warning" /> {'Logs'}</>}
         style={{ width: '48%' }}
-        extra={<a href="#">See all</a>}
+        extra={<Link to={'/logs'}>See all</Link>}
       >
         <LogList setIsModalOpen={setIsModalOpen} start={0} end={5} />
       </Card>
