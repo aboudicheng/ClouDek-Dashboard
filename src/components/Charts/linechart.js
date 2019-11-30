@@ -58,6 +58,7 @@ function LineChart({ select }) {
         );
       }
     }
+    console.log({ filtered, sliced })
     setCurrentLogs(sliced);
   }, [logs, select]);
 

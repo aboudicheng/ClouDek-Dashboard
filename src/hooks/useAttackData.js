@@ -9,8 +9,6 @@ function useAttackData() {
     fetch(`${api.api}/api/query`).then(res => res.json()).then(data => {
       const ids = Object.keys(data);
       const values = Object.values(data);
-      console.log({ values })
-      console.log(values.map((obj, i) => ({ ...obj, id: ids[i] })))
       dispatch(actions.setAttackData(data));
       dispatch(actions.setLogs(values.map((obj, i) => ({ ...obj, id: ids[i] }))))
     });

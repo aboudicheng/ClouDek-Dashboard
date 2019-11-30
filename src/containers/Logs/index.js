@@ -6,8 +6,17 @@ import moment from 'moment';
 import './style.scss';
 
 function Logs() {
-  const { attackData } = useSelector(state => state.attackDataState);
+  const { attackData, logs } = useSelector(state => state.attackDataState);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [current, setCurrent] = useState(1);
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(10);
+
+  function handlePageChange(page) {
+    setStart((page - 1) * 10);
+    setEnd(page * 10 - 1);
+    setCurrent(page);
+  }
 
   return (
     <div className="log-list">
@@ -15,7 +24,14 @@ function Logs() {
         <Card
           title={<><Icon type="warning" /> {'Logs'}</>}
         >
-          <LogList setIsModalOpen={setIsModalOpen} start={0} end={10} />
+          <LogList setIsModalOpen={setIsModalOpen} start={start} end={end} />
+          <Pagination
+            defaultCurrent={current}
+            onChange={handlePageChange}
+            pageSize={10}
+            total={logs.length}
+            style={{ marginTop: '1.2em' }}
+          />
         </Card>
         <Modal
           visible={!!isModalOpen}
