@@ -11,13 +11,19 @@ const { Option } = Select;
 
 function Dashboard() {
   const [select, setSelect] = useState('today');
+  const [attackData, setAttackData] = useState({});
   const [logs, setLogs] = useState([]);
   const ws = useWebSocket('wss://echo.websocket.org/?encoding=text', onMessage);
 
   useEffect(() => {
     fetch(`${api.api}/api/query`).then(res => res.json()).then(data => {
-      setLogs(Object.values(data));
-    })
+      const ids = Object.keys(data);
+      const values = Object.values(data);
+      console.log({ values })
+      console.log(values.map((obj, i) => ({ ...obj, id: ids[i] })))
+      setAttackData(data);
+      setLogs(values.map((obj, i) => ({ ...obj, id: ids[i] })));
+    });
 
   }, []);
 
@@ -26,8 +32,7 @@ function Dashboard() {
   }
 
   const sendMessage = () => {
-    //以 emit 送訊息，並以 getMessage 為名稱送給 server 捕捉
-    ws.send('getMessage')
+    ws.send('Xi jing ping === Winnie')
   }
 
   const closeConnection = () => {
@@ -53,7 +58,7 @@ function Dashboard() {
         <LineChart logs={logs} select={select} />
       </Card>
       <div className="charts-row">
-        <Logger logs={logs} />
+        <Logger attackData={attackData} logs={logs} />
         <PieChart logs={logs} />
       </div>
       <Button onClick={sendMessage}>Send</Button>
