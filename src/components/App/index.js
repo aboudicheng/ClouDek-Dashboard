@@ -16,9 +16,11 @@ function App() {
       <Layout className="App">
         <ScrollTop />
         <Navigation />
-        <Switch>
-          <Route exact path='/' component={() => <Dashboard />} />
-        </Switch>
+        <div style={{ background: '#313c5e' }}>
+          <Switch>
+            <Route exact path='/' component={() => <Dashboard />} />
+          </Switch>
+        </div>
       </Layout>
     </Router>
   )

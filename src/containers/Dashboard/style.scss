@@ -1,3 +1,20 @@
 .dashboard {
   max-width: 750px;
+  margin: 1.2em auto;
+
+  .charts-row {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+
+    > div {
+      margin-bottom: 1.2em;
+    }
+
+    @media screen and (max-width: 795px) {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
 }
