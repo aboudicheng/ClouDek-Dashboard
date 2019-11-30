@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Pie } from 'react-chartjs-2';
-import { Card } from 'antd';
+import { Card, Icon } from 'antd';
 
-function PieChart({ logs }) {
+function PieChart() {
+  const { logs } = useSelector(state => state.attackDataState);
   const [attackTypes, setAttackTypes] = useState([]);
 
   useEffect(() => {
@@ -56,7 +58,7 @@ function PieChart({ logs }) {
 
   return (
     <Card
-      title='Types of Attacks'
+      title={<><Icon type="alert" /> {'Types of Attacks'}</>}
       style={{ width: '48%' }}
     >
       <Pie

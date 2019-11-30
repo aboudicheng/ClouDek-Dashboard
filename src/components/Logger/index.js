@@ -1,34 +1,37 @@
 import React, { useState } from 'react';
-import { Card, List, Modal } from 'antd';
+import { useSelector } from 'react-redux';
+import { Card, Modal, Icon } from 'antd';
 import moment from 'moment';
+import LogList from '../LogList';
 
-function Logger({ logs, attackData }) {
+function Logger() {
+  const { logs, attackData } = useSelector(state => state.attackDataState);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
       <Card
-        title='Logs'
+        title={<><Icon type="warning" /> {'Logs'}</>}
         style={{ width: '48%' }}
         extra={<a href="#">See all</a>}
       >
-        <List
-          bordered
-          dataSource={logs.slice(0, 5)}
-          itemLayout="horizontal"
-          renderItem={item => (
-            <List.Item
-              actions={[<a onClick={() => setIsModalOpen(item.id)}>Details</a>]}
-            >
-              {moment.unix(item.timestamp).format("HH:mm MMM DD YYYY")}
-            </List.Item>
-          )}
-        />
+        <LogList setIsModalOpen={setIsModalOpen} start={0} end={5} />
       </Card>
       <Modal
         visible={!!isModalOpen}
         onCancel={() => setIsModalOpen(false)}
-      >{isModalOpen}</Modal>
+        title='Details'
+      >
+        {isModalOpen &&
+          <>
+            <p>Type: <b>{attackData[isModalOpen].type}</b></p>
+            <p>IP Address: <b>{attackData[isModalOpen].ip}</b></p>
+            <p>Time: <b>{moment.unix(attackData[isModalOpen].timestamp).format('DD-MMM-YYYY HH:mm:ss')}</b></p>
+            <p>Query Key: <b>{attackData[isModalOpen].query_key}</b></p>
+            <p>Query Value: <b>{attackData[isModalOpen].query_val}</b></p>
+          </>
+        }
+      </Modal>
     </>
   )
 }

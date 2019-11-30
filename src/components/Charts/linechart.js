@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Line } from 'react-chartjs-2';
 import moment from 'moment';
+import { Card, Icon } from 'antd';
 
 const now = moment();
 
-function LineChart({ logs, select }) {
+function LineChart({ select }) {
+  const { logs } = useSelector(state => state.attackDataState);
   const [currentLogs, setCurrentLogs] = useState();
 
   useEffect(() => {
@@ -93,7 +96,6 @@ function LineChart({ logs, select }) {
   const data = {
     labels: getLabels(),
     datasets: [{
-      label: "Number of Attacks",
       data: currentLogs,
       fill: 'none',
       backgroundColor: "#3E517A",
@@ -104,32 +106,21 @@ function LineChart({ logs, select }) {
     }]
   }
 
-  const options = {
-    scales: {
-      xAxes: [
-        {
-          type: 'time',
-          time: {
-            unit: select
-          }
-        }
-      ],
-      yAxes: [
-        {
-          ticks: {
-            min: 0
-          }
-        }
-      ]
-    }
-  }
   return (
-    <Line
-      data={data}
-      width={100}
-      height={40}
-      //options={options}
-    />
+    <Card
+      title={<><Icon type="line-chart" /> {'Number of Attacks'}</>}
+      style={{ margin: '1.2em 0' }}>
+      <Line
+        data={data}
+        width={100}
+        height={40}
+        options={{
+          legend: {
+            display: false
+          }
+        }}
+      />
+    </Card>
   )
 }
 

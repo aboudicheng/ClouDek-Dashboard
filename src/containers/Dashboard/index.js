@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card, Select } from 'antd';
+import { useDispatch } from 'react-redux';
+import { Button, Select } from 'antd';
 import useWebSocket from '../../hooks/useWebsocket';
 import LineChart from '../../components/Charts/linechart';
 import PieChart from '../../components/Charts/piechart';
 import Logger from '../../components/Logger';
 import * as api from '../../constants/api';
+import * as actions from '../../actions';
 import './style.scss';
 
 const { Option } = Select;
 
 function Dashboard() {
   const [select, setSelect] = useState('today');
-  const [attackData, setAttackData] = useState({});
-  const [logs, setLogs] = useState([]);
+  const dispatch = useDispatch();
+  // const [attackData, setAttackData] = useState({});
+  // const [logs, setLogs] = useState([]);
   const ws = useWebSocket('wss://echo.websocket.org/?encoding=text', onMessage);
 
   useEffect(() => {
@@ -21,8 +24,10 @@ function Dashboard() {
       const values = Object.values(data);
       console.log({ values })
       console.log(values.map((obj, i) => ({ ...obj, id: ids[i] })))
-      setAttackData(data);
-      setLogs(values.map((obj, i) => ({ ...obj, id: ids[i] })));
+      dispatch(actions.setAttackData(data));
+      dispatch(actions.setLogs(values.map((obj, i) => ({ ...obj, id: ids[i] }))))
+      //setAttackData(data);
+      //setLogs(values.map((obj, i) => ({ ...obj, id: ids[i] })));
     });
 
   }, []);
@@ -54,12 +59,10 @@ function Dashboard() {
           <Option value="year">This Year</Option>
         </Select>
       </div>
-      <Card style={{ margin: '1.2em 0' }}>
-        <LineChart logs={logs} select={select} />
-      </Card>
+      <LineChart select={select} />
       <div className="charts-row">
-        <Logger attackData={attackData} logs={logs} />
-        <PieChart logs={logs} />
+        <Logger />
+        <PieChart />
       </div>
       <Button onClick={sendMessage}>Send</Button>
       <Button onClick={closeConnection}>Close</Button>
