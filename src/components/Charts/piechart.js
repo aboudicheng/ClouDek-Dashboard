@@ -18,7 +18,6 @@ function PieChart({ logs }) {
         types[log.type] = 1;
       }
     });
-    console.log({ types })
     return types;
   }
 

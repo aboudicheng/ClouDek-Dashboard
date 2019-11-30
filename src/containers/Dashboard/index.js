@@ -52,7 +52,7 @@ function Dashboard() {
       <Card style={{ margin: '1.2em 0' }}>
         <LineChart logs={logs} select={select} />
       </Card>
-      <div className="charts-row" style={{  }}>
+      <div className="charts-row">
         <Logger logs={logs} />
         <PieChart logs={logs} />
       </div>
