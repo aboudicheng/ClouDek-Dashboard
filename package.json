@@ -5,9 +5,11 @@
   "dependencies": {
     "antd": "^3.25.3",
     "chart.js": "^2.9.3",
+    "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-chartjs-2": "^2.8.0",
     "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "socket.io-client": "^2.3.0"
   },

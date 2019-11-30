@@ -1,29 +1,42 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import useWebSocket from '../../hooks/useWebsocket';
+import React, { useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  withRouter
+} from 'react-router-dom';
+import Dashboard from '../../containers/Dashboard';
+import Navigation from '../Navigation';
+import { Layout } from 'antd';
+import './style.scss';
 
 function App() {
-  const ws = useWebSocket('wss://echo.websocket.org/?encoding=text', onMessage);
-
-  function onMessage(evt) {
-    console.log(evt)
-  }
-
-  const sendMessage = () => {
-    //以 emit 送訊息，並以 getMessage 為名稱送給 server 捕捉
-    ws.send('getMessage')
-  }
-
-  const closeConnection = () => {
-    ws.close();
-    console.log('closed')
-  }
-
   return (
-    <div>
-      <input type='button' value='Send' onClick={sendMessage} />
-      <input type='button' value='Close' onClick={closeConnection} />
-    </div>
+    <Router basename={process.env.PUBLIC_URL} onUpdate={() => window.scrollTo(0, 0)}>
+      <Layout className="App">
+        <ScrollTop />
+        <Navigation />
+        <Switch>
+          <Route exact path='/' component={() => <Dashboard />} />
+        </Switch>
+      </Layout>
+    </Router>
   )
 }
+
+function ScrollComponent({ history }) {
+  useEffect(() => {
+    const unlisten = history.listen(() => {
+      window.scrollTo(0, 0);
+    });
+    return () => {
+      unlisten();
+    }
+  }, []);
+
+  return (null);
+}
+
+const ScrollTop = withRouter(ScrollComponent);
 
 export default App;

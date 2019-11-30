@@ -1,0 +1,14 @@
+.App {
+  /* Center and scale the image nicely */
+  background: #f4f5f7;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+
+  > div {
+    min-height: calc(100vh - 64px);
+    margin: 64px auto 0 auto;
+    width: 100%;
+  }
+}

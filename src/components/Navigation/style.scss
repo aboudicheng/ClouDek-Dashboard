@@ -1,0 +1,17 @@
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  z-index: 5;
+  width: 100%;
+
+  > .title {
+    width: 120px;
+    color: grey;
+    float: left;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+  }
+}
