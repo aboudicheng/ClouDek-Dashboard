@@ -57,13 +57,13 @@ function App() {
         param: data[type].param,
         val: data[type].val,
         timestamp: +new Date() / 1000,
-        type
+        type,
+        confidence: data[type].confidence
       }
-      console.log({ formatted })
       dispatch(actions.addAttackData(formatted, data[type].uid));
       formatted.id = data[type].uid;
       dispatch(actions.addLog(formatted));
-      description = `A user with an IP address of ${formatted.ip} tried to perform a ${formatted.type} attack to your application.`;
+      description = `A user with an IP address of ${formatted.ip} tried to perform a ${formatted.type} (${Math.floor(formatted.confidence * 100)}% Confident) attack to your application.`;
     }
 
     openNotification(description);
