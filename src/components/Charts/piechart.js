@@ -58,8 +58,8 @@ function PieChart() {
 
   return (
     <Card
-      title={<><Icon type="alert" /> {'Types of Attacks'}</>}
-      style={{ width: '48%' }}
+      title={<><Icon type="pie-chart" /> {'Types of Attacks'}</>}
+      style={{ marginTop: '1.2em' }}
     >
       <Pie
         data={data}

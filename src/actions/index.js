@@ -28,3 +28,10 @@ export function addLog(payload) {
     payload
   }
 }
+
+export function addAlert(payload) {
+  return {
+    type: actions.ADD_ALERT,
+    payload
+  }
+}

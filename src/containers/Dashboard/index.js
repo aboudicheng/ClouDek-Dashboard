@@ -3,6 +3,7 @@ import { Select } from 'antd';
 import LineChart from '../../components/Charts/linechart';
 import PieChart from '../../components/Charts/piechart';
 import Logger from '../../components/Logger';
+import Alerts from '../../components/Alerts';
 import './style.scss';
 
 const { Option } = Select;
@@ -25,10 +26,13 @@ function Dashboard() {
         </Select>
       </div>
       <LineChart select={select} />
+
       <div className="charts-row">
         <Logger />
-        <PieChart />
+        <Alerts />
       </div>
+
+      <PieChart />
     </div>
   )
 }

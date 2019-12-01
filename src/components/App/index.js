@@ -10,31 +10,21 @@ import Login from '../../containers/Login';
 import Dashboard from '../../containers/Dashboard';
 import Navigation from '../Navigation';
 import Logs from '../../containers/Logs';
-import { Layout, Button, notification } from 'antd';
+import { Layout, notification } from 'antd';
 import useAttackData from '../../hooks/useAttackData';
 import useWebSocket from '../../hooks/useWebsocket';
 import * as actions from '../../actions';
 import './style.scss';
 
-const mock = {
-  data:'{"CRLF":{"ip":"139.179.134.48","param":"asd","val":"%0aads","uid":"sdfsdfjk13l432424"}}'
-}
-
 function App() {
-  const ws = useWebSocket('ws://167.172.170.149:80', onMessage);
+  const ws = useWebSocket('ws://167.172.170.149:8000', onMessage);
   useAttackData();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setTimeout(() => {
-      onMessage(mock)
-    }, 5000);
-  }, []);
-
-  const openNotification = (message) => {
+  const openNotification = (data) => {
     notification.warn({
       message: `New Attack!`,
-      description: message,
+      description: `A user with an IP address of ${data.ip} tried to perform a ${data.type} attack to your application.`,
       placement: 'bottomRight',
       duration: 5
     });
@@ -43,32 +33,37 @@ function App() {
   function onMessage(evt) {
     const data = JSON.parse(evt.data);
     const type = Object.keys(data)[0];
-    const formatted = {
+
+    let description = '';
+
+    if (type === "Viral" || type === "Intrusion") {
+      if (type === "Intrusion") {
+        description = `Abnormal activities detected on path ${data[type].path}.`;
+      }
+      else {
+        description = `Your website contains link(s) to ${data[type].join(', ')} which are malicious.`;
+      }
+      data[type].type = type;
+      data[type].timestamp = +new Date() / 1000;
+      dispatch(actions.addAlert(data[type]));
+    }
+    else {
+      const formatted = {
         ip: data[type].ip,
         query_key: data[type].param,
         query_val: data[type].val,
         timestamp: +new Date() / 1000,
         type
+      }
+      dispatch(actions.addAttackData(formatted, data[type].uid));
+      formatted.id = data[type].uid;
+      dispatch(actions.addLog(formatted));
+      description = `A user with an IP address of ${formatted.ip} tried to perform a ${formatted.type} attack to your application.`;
     }
 
-    dispatch(actions.addAttackData(formatted, data[type].uid));
-    formatted.id = data[type].uid;
-    dispatch(actions.addLog(formatted));
-
-    console.log(evt)
-    console.log(JSON.parse(evt.data));
-
-    openNotification(evt.data);
+    openNotification(description);
   }
 
-  const sendMessage = () => {
-    ws.send('Xi jing ping === Winnie')
-  }
-
-  const closeConnection = () => {
-    ws.close();
-    console.log('closed')
-  }
   return (
     <Router basename={process.env.PUBLIC_URL} onUpdate={() => window.scrollTo(0, 0)}>
       <Layout className="App">
@@ -81,8 +76,6 @@ function App() {
             <Route exact path='/logs' component={() => <Logs />} />
           </Switch>
         </div>
-        {/* <Button onClick={sendMessage}>Send</Button>
-        <Button onClick={closeConnection}>Close</Button> */}
       </Layout>
     </Router>
   )

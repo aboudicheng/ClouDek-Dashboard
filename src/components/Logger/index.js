@@ -12,7 +12,7 @@ function Logger() {
   return (
     <>
       <Card
-        title={<><Icon type="warning" /> {'Logs'}</>}
+        title={<><Icon type="warning" /> {'Malicious Input Logs'}</>}
         style={{ width: '48%' }}
         extra={<Link to={'/logs'}>See all</Link>}
       >
