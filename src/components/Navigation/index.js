@@ -15,7 +15,7 @@ function Navigation() {
   return (
     <Layout>
       <Header className="nav-header">
-        <div className="title"><Link to='/dashboard' style={titleStyle}>IDS Dashboard</Link></div>
+        <div className="title"><Link to='/dashboard' style={titleStyle}>Cloudek</Link></div>
       </Header>
     </Layout>
   )
