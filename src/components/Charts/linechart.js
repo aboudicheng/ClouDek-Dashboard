@@ -26,12 +26,13 @@ function LineChart({ select }) {
     }
     else if (select === "week") {
       filtered = logs.filter(log => {
-        return now.isSame(moment.unix(log.timestamp), 'week')
+        return moment().startOf('week').isBefore(moment.unix(log.timestamp)) &&
+          moment().endOf('week').isAfter(moment.unix(log.timestamp))
       });
 
       for (let i = 1; i <= 7; i++) {
         sliced.push(
-          filtered.filter(log => moment.unix(log.timestamp).day() === i).length
+          filtered.filter(log => moment.unix(log.timestamp).isoWeekday() === i).length
         );
       }
     }
@@ -58,7 +59,6 @@ function LineChart({ select }) {
         );
       }
     }
-    console.log({ filtered, sliced })
     setCurrentLogs(sliced);
   }, [logs, select]);
 
