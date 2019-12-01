@@ -6,6 +6,7 @@ import {
   Switch,
   withRouter
 } from 'react-router-dom';
+import Login from '../../containers/Login';
 import Dashboard from '../../containers/Dashboard';
 import Navigation from '../Navigation';
 import Logs from '../../containers/Logs';
@@ -75,12 +76,13 @@ function App() {
         <Navigation />
         <div style={{ background: '#313c5e' }}>
           <Switch>
-            <Route exact path='/' component={() => <Dashboard />} />
+            <Route exact path='/' component={() => <Login />} />
+            <Route exact path='/dashboard' component={() => <Dashboard />} />
             <Route exact path='/logs' component={() => <Logs />} />
           </Switch>
         </div>
-        <Button onClick={sendMessage}>Send</Button>
-        <Button onClick={closeConnection}>Close</Button>
+        {/* <Button onClick={sendMessage}>Send</Button>
+        <Button onClick={closeConnection}>Close</Button> */}
       </Layout>
     </Router>
   )

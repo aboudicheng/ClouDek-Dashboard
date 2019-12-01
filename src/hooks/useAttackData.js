@@ -18,7 +18,9 @@ function useAttackData() {
       });
 
       dispatch(actions.setAttackData(data));
-      dispatch(actions.setLogs(values.map((obj, i) => ({ ...obj, id: ids[i] }))))
+      const logs = values.map((obj, i) => ({ ...obj, id: ids[i] }));
+      logs.pop();
+      dispatch(actions.setLogs(logs))
     });
 
   }, []);
