@@ -41,7 +41,6 @@ function App() {
         description = `Abnormal activities detected on path ${data[type].path}.`;
       }
       else if (type === 'CSRF')  {
-        //your form name at location is vulnerable to csrf
         description = `Your form name "${data[type].formName}" at location ${data[type].location} is vulnerable to CSRF.`;
       }
       else {
