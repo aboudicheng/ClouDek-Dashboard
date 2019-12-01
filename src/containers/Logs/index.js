@@ -46,8 +46,8 @@ function Logs() {
               <p>Type: <b>{attackData[isModalOpen].type}</b></p>
               <p>IP Address: <b>{attackData[isModalOpen].ip}</b></p>
               <p>Time: <b>{moment.unix(attackData[isModalOpen].timestamp).format('DD-MMM-YYYY HH:mm:ss')}</b></p>
-              <p>Query Key: <b>{attackData[isModalOpen].query_key}</b></p>
-              <p>Query Value: <b>{attackData[isModalOpen].query_val}</b></p>
+              <p>Query Key: <b>{attackData[isModalOpen].param}</b></p>
+              <p>Query Value: <b>{attackData[isModalOpen].val}</b></p>
             </>
           }
         </Modal>
