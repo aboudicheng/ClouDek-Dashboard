@@ -21,10 +21,10 @@ function App() {
   useAttackData();
   const dispatch = useDispatch();
 
-  const openNotification = (data) => {
+  const openNotification = (description) => {
     notification.warn({
       message: `New Attack!`,
-      description: `A user with an IP address of ${data.ip} tried to perform a ${data.type} attack to your application.`,
+      description,
       placement: 'bottomRight',
       duration: 5
     });
@@ -36,9 +36,13 @@ function App() {
 
     let description = '';
 
-    if (type === "Viral" || type === "Intrusion") {
+    if (type === "Viral" || type === "Intrusion" || type === "CSRF") {
       if (type === "Intrusion") {
         description = `Abnormal activities detected on path ${data[type].path}.`;
+      }
+      else if (type === 'CSRF')  {
+        //your form name at location is vulnerable to csrf
+        description = `Your form name "${data[type].formName}" at location ${data[type].location} is vulnerable to CSRF.`;
       }
       else {
         description = `Your website contains link(s) to ${data[type].join(', ')} which are malicious.`;
@@ -48,13 +52,15 @@ function App() {
       dispatch(actions.addAlert(data[type]));
     }
     else {
+      console.log(data[type])
       const formatted = {
         ip: data[type].ip,
-        query_key: data[type].param,
-        query_val: data[type].val,
+        param: data[type].param,
+        val: data[type].val,
         timestamp: +new Date() / 1000,
         type
       }
+      console.log({ formatted })
       dispatch(actions.addAttackData(formatted, data[type].uid));
       formatted.id = data[type].uid;
       dispatch(actions.addLog(formatted));
