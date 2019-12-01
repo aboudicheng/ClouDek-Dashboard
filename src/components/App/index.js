@@ -8,7 +8,7 @@ import {
 import Dashboard from '../../containers/Dashboard';
 import Navigation from '../Navigation';
 import Logs from '../../containers/Logs';
-import { Layout, Button } from 'antd';
+import { Layout, Button, notification } from 'antd';
 import useAttackData from '../../hooks/useAttackData';
 import useWebSocket from '../../hooks/useWebsocket';
 import './style.scss';
@@ -17,8 +17,20 @@ function App() {
   const ws = useWebSocket('ws://167.172.170.149:80', onMessage);
   useAttackData();
 
+  const openNotification = (message) => {
+    notification.warn({
+      message: `New Attack!`,
+      description: message,
+      placement: 'bottomRight',
+      duration: 5000
+    });
+  };
+
   function onMessage(evt) {
     console.log(evt)
+    console.log(JSON.parse(evt.data));
+
+    openNotification(evt.data);
   }
 
   const sendMessage = () => {

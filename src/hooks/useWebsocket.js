@@ -15,6 +15,7 @@ function useWebSocket(url, onMessage) {
   // start listening
   const initWebSocket = useCallback(() => {
     ws.onmessage = onMessage;
+    ws.send('Your device is connectidetid')
   }, [ws]);
 
   useEffect(() => {
