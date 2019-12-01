@@ -22,7 +22,7 @@ function App() {
       message: `New Attack!`,
       description: message,
       placement: 'bottomRight',
-      duration: 5000
+      duration: 5
     });
   };
 
