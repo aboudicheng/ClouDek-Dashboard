@@ -25,7 +25,7 @@ function useWebSocket(url, onMessage) {
   useEffect(() => {
     if (ws) {
       ws.onopen = () => {
-        console.log('connected');
+        console.log('Websocket connected!');
         initWebSocket();
       }
     }

@@ -13,3 +13,18 @@ export function setAttackData(payload) {
     payload
   }
 }
+
+export function addAttackData(payload, id) {
+  return {
+    type: actions.ADD_ATTACK_DATA,
+    payload,
+    id
+  }
+}
+
+export function addLog(payload) {
+  return {
+    type: actions.ADD_LOG,
+    payload
+  }
+}
