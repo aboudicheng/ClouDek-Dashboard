@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Card, Modal, Icon } from 'antd';
+import { Card, Modal, Icon, Button } from 'antd';
 import moment from 'moment';
 import LogList from '../LogList';
 
@@ -22,6 +22,9 @@ function Logger() {
         visible={!!isModalOpen}
         onCancel={() => setIsModalOpen(false)}
         title='Details'
+        footer={[
+          <Button key="return" onClick={() => setIsModalOpen(false)}>Return</Button>
+        ]}
       >
         {isModalOpen &&
           <>

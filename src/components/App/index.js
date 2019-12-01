@@ -8,12 +8,27 @@ import {
 import Dashboard from '../../containers/Dashboard';
 import Navigation from '../Navigation';
 import Logs from '../../containers/Logs';
-import { Layout } from 'antd';
+import { Layout, Button } from 'antd';
 import useAttackData from '../../hooks/useAttackData';
+import useWebSocket from '../../hooks/useWebsocket';
 import './style.scss';
 
 function App() {
-  useAttackData()
+  const ws = useWebSocket('ws://167.172.170.149:80', onMessage);
+  useAttackData();
+
+  function onMessage(evt) {
+    console.log(evt)
+  }
+
+  const sendMessage = () => {
+    ws.send('Xi jing ping === Winnie')
+  }
+
+  const closeConnection = () => {
+    ws.close();
+    console.log('closed')
+  }
   return (
     <Router basename={process.env.PUBLIC_URL} onUpdate={() => window.scrollTo(0, 0)}>
       <Layout className="App">
@@ -25,6 +40,8 @@ function App() {
             <Route exact path='/logs' component={() => <Logs />} />
           </Switch>
         </div>
+        <Button onClick={sendMessage}>Send</Button>
+        <Button onClick={closeConnection}>Close</Button>
       </Layout>
     </Router>
   )

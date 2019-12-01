@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Select } from 'antd';
-import useWebSocket from '../../hooks/useWebsocket';
+import { Select } from 'antd';
 import LineChart from '../../components/Charts/linechart';
 import PieChart from '../../components/Charts/piechart';
 import Logger from '../../components/Logger';
@@ -10,20 +9,6 @@ const { Option } = Select;
 
 function Dashboard() {
   const [select, setSelect] = useState('today');
-  const ws = useWebSocket('wss://echo.websocket.org/?encoding=text', onMessage);
-
-  function onMessage(evt) {
-    console.log(evt)
-  }
-
-  const sendMessage = () => {
-    ws.send('Xi jing ping === Winnie')
-  }
-
-  const closeConnection = () => {
-    ws.close();
-    console.log('closed')
-  }
 
   function handleSelect(value) {
     setSelect(value);
@@ -44,8 +29,6 @@ function Dashboard() {
         <Logger />
         <PieChart />
       </div>
-      <Button onClick={sendMessage}>Send</Button>
-      <Button onClick={closeConnection}>Close</Button>
     </div>
   )
 }

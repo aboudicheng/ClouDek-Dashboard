@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Card, Pagination, Icon, Modal } from 'antd';
+import { Card, Pagination, Icon, Modal, Button } from 'antd';
 import LogList from '../../components/LogList';
 import moment from 'moment';
 import './style.scss';
@@ -37,6 +37,9 @@ function Logs() {
           visible={!!isModalOpen}
           onCancel={() => setIsModalOpen(false)}
           title='Details'
+          footer={[
+            <Button key="return" onClick={() => setIsModalOpen(false)}>Return</Button>
+          ]}
         >
           {isModalOpen &&
             <>
