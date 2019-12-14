@@ -8,7 +8,7 @@ Web vulnerabilities incidents monitoring service using machine learning.
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/efe8616d-cf20-4867-9399-fd7957b63e5e/deploy-status)](https://app.netlify.com/sites/cloudek/deploys)
 
-![image](https://github.com/aboudicheng/ClouDek-Dashboard/tree/master/resources/demo.gif)
+![image](https://github.com/aboudicheng/ClouDek-Dashboard/blob/master/resources/demo.gif)
 
 </div>
 
