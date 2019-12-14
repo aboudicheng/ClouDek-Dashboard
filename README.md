@@ -1,10 +1,9 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/abdurahman-ctis/ips-hackathor/master/clouddek.png?token=AIPDEMOGA5UCFFZZ6IL7WVS5553FE" alt="ClouDek Logo" height="300" >
+  <img src="https://raw.githubusercontent.com/abdurahman-ctis/ips-hackathor/master/clouddek.png?token=AIPDEMOGA5UCFFZZ6IL7WVS5553FE" alt="ClouDek Logo" height="300" ><br/>
+  Web vulnerabilities incidents monitoring service using machine learning.
 </p>
 
-<h1 align="center">ClouDek</h1>
 <div align="center">
-Web vulnerabilities incidents monitoring service using machine learning.
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/efe8616d-cf20-4867-9399-fd7957b63e5e/deploy-status)](https://app.netlify.com/sites/cloudek/deploys)
 
